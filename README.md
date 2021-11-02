@@ -11,10 +11,15 @@
 2. Start your virtualenv: `source .venv/bin/activate`
 3. Run the server: `uvicorn api:app --port 5000`
 
-## Running the test client
+## Running the client
 
 1. Start your virtualenv: `source .venv/bin/activate`. This is required because `requests` is not a built-in module.
 2. Run `python3 client.py`
+
+## Running the tests
+
+1. Start your virtualenv: `source .venv/bin/activate`.
+2. Run `python3 -m unittest tests.py`
 
 # Contributing
 
