@@ -45,17 +45,20 @@ class Module(BaseModule):
     PostModel = PostModel
     ResponseModel = ResponseModel
     supported_message_types = ['compute_max', 'comparison_result']
-    memory_store: Dict[str, Request] = {}
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.__memory_store: Dict[str, Request] = {}
 
     def process(self, data: PostModel) -> ResponseModel:
         if data.type == "compute_max":
             request_id = str(uuid.uuid4())
             request = Request(length=data.length, max=0, next=1)
-            self.memory_store[request_id] = request
+            self.__memory_store[request_id] = request
             return self.compare_or_resolve(request, request_id)
 
         elif data.type == "comparison_result":
-            request = self.memory_store[data.request_id]
+            request = self.__memory_store[data.request_id]
             if data.answer:
                 request.max = request.next
 
